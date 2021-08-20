@@ -17,15 +17,19 @@ extension PullableSheet {
         var y: CGFloat {
             switch self {
             case .min:
-                if #available(iOS 11.0, *) {
-                    return UIApplication.shared.keyWindow!.safeAreaInsets.top // FIXME
+                if #available(iOS 13.0, *) {
+                    let window = UIApplication.shared.windows[0]
+                    let topPadding = window.safeAreaInsets.top
+                    return topPadding
                 } else {
                     return 0
                 }
             case .max:
                 return UIScreen.main.bounds.height - {
-                    if #available(iOS 11.0, *) {
-                        return UIApplication.shared.keyWindow!.safeAreaInsets.bottom // FIXME
+                    if #available(iOS 13.0, *) {
+                        let window = UIApplication.shared.windows[0]
+                        let bottomPadding = window.safeAreaInsets.bottom
+                        return bottomPadding
                     } else {
                         return 0
                     }
